@@ -1,0 +1,29 @@
+<h2>Data Grid</h2>
+<form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+  <input type="text" maxlength="255" formControlName="searchTerm" />
+  <button type="submit">Search</button>
+</form>
+
+<table>
+  <tr *ngIf="profiles.length > 0">
+    <th>Name</th>
+    <th>Address</th>
+    <th>Date of birth</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <tr *ngFor="let profile of profiles" id="row-{{ profile.id }}">
+    <td class="name">{{ profile.name }}</td>
+    <td class="address">{{ profile.address }}</td>
+    <td class="dob">{{ profile.date_of_birth }}</td>
+    <td><button (click)="editProfile(profile.id)">Edit</button></td>
+    <td>
+      <button (click)="deleteProfile(profile.id)">Delete</button>
+    </td>
+  </tr>
+</table>
+
+<div *ngIf="toEdit">
+  <app-edit-profile [selectedProfile]="toEdit"></app-edit-profile>
+  <button (click)="cancelEdit()">Cancel</button>
+</div>

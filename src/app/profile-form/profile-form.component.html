@@ -1,0 +1,22 @@
+<h2>Add Profile</h2>
+<form [formGroup]="profileForm" (ngSubmit)="onSave()">
+  <div>
+    <label for="name">Name</label
+    ><input type="text" id="name" maxlength="255" formControlName="Name" />
+  </div>
+  <div>
+    <label for="address">Address</label
+    ><textarea
+      id="address"
+      cols="30"
+      rows="10"
+      maxlength="255"
+      formControlName="Address"
+    ></textarea>
+  </div>
+  <div>
+    <label for="date_of_birth">Date of Birth</label
+    ><input type="date" id="date_of_birth" formControlName="Date_of_birth" />
+  </div>
+  <button type="submit">Save Profile</button>
+</form>
