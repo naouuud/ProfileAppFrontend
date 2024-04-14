@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import {
   HttpClientModule,
@@ -14,6 +20,7 @@ import {
   styleUrl: './edit-profile.component.css',
 })
 export class EditProfileComponent implements OnChanges {
+  @Output() finishEditing = new EventEmitter();
   @Input() selectedProfile:
     | {
         Id: string;
@@ -49,8 +56,7 @@ export class EditProfileComponent implements OnChanges {
         }),
       })
       .subscribe(() => {
-        alert('Profile updated');
-        // output
+        this.finishEditing.emit();
       });
   }
 }

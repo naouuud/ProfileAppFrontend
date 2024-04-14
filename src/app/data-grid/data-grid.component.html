@@ -24,6 +24,8 @@
 </table>
 
 <div *ngIf="toEdit">
-  <app-edit-profile [selectedProfile]="toEdit"></app-edit-profile>
-  <button (click)="cancelEdit()">Cancel</button>
+  <app-edit-profile
+    [selectedProfile]="toEdit"
+    (finishEditing)="endEdit()"
+  ></app-edit-profile>
 </div>

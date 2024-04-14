@@ -83,7 +83,6 @@ export class DataGridComponent {
   }
 
   editProfile(id: string) {
-    document.querySelector(`#row-${id}`);
     this.toEdit = {
       Id: id,
       Name: document.querySelector(`#row-${id} .name`)?.textContent || '',
@@ -93,9 +92,10 @@ export class DataGridComponent {
     };
   }
 
-  cancelEdit() {
+  endEdit() {
     this.toEdit = undefined;
-  } // respond to output
+    this.onSearch();
+  }
 
   deleteProfile(id: string) {
     this.http
