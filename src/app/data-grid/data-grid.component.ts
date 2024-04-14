@@ -54,7 +54,7 @@ export class DataGridComponent {
     else {
       this.http
         .post<any[]>(
-          'https://localhost:7025/api/Profiles/Search',
+          'https://profileapp59256.azurewebsites.net/api/Profiles/Search',
           JSON.stringify(searchTerm),
           {
             headers: new HttpHeaders({
@@ -73,7 +73,7 @@ export class DataGridComponent {
 
   getAll() {
     this.http
-      .get<any[]>('https://localhost:7025/api/Profiles')
+      .get<any[]>('https://profileapp59256.azurewebsites.net/api/Profiles')
       .subscribe((response) => {
         this.profiles = [...response];
         for (const profile of this.profiles) {
@@ -99,7 +99,7 @@ export class DataGridComponent {
 
   deleteProfile(id: string) {
     this.http
-      .delete(`https://localhost:7025/api/Profiles/${id}`)
+      .delete(`https://profileapp59256.azurewebsites.net/api/Profiles/${id}`)
       .subscribe(() => this.onSearch());
   }
 }

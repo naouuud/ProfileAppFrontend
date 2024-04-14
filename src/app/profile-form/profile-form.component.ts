@@ -30,11 +30,15 @@ export class ProfileFormComponent {
     if (data.Date_of_birth === '') data.Date_of_birth = null;
     const dataJson = JSON.stringify(this.profileForm.value);
     this.http
-      .post('https://localhost:7025/api/Profiles', dataJson, {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-        }),
-      })
+      .post(
+        'https://profileapp59256.azurewebsites.net/api/Profiles',
+        dataJson,
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          }),
+        },
+      )
       .subscribe((response) => {
         alert('Profile saved');
         console.log(response);
