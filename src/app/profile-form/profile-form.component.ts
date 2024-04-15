@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import {
   HttpClientModule,
@@ -14,6 +14,7 @@ import {
   imports: [ReactiveFormsModule, HttpClientModule],
 })
 export class ProfileFormComponent {
+  @Output() finishAdding = new EventEmitter();
   profileForm = this.formBuilder.group({
     Name: '',
     Address: '',
@@ -41,8 +42,9 @@ export class ProfileFormComponent {
       )
       .subscribe((response) => {
         alert('Profile saved');
-        console.log(response);
+        console.log('Added Profile:', response);
         this.profileForm.reset();
+        this.finishAdding.emit();
       });
   }
 }

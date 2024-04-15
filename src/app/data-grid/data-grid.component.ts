@@ -6,6 +6,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ProfileFormComponent } from '../profile-form/profile-form.component';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 
 @Component({
@@ -15,6 +16,7 @@ import { EditProfileComponent } from '../edit-profile/edit-profile.component';
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
+    ProfileFormComponent,
     EditProfileComponent,
   ],
   templateUrl: './data-grid.component.html',
@@ -40,7 +42,7 @@ export class DataGridComponent {
   ) {}
 
   formatDate(dateString: string | null): string {
-    if (!dateString) return 'null';
+    if (!dateString) return '';
     const date = new Date(dateString);
     const fullYear = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');

@@ -1,3 +1,5 @@
+<app-profile-form (finishAdding)="endEdit()"></app-profile-form>
+
 <h2>Data Grid</h2>
 <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
   <input type="text" maxlength="255" formControlName="searchTerm" />
@@ -23,7 +25,7 @@
   </tr>
 </table>
 
-<div *ngIf="toEdit">
+<div id="edit-form" *ngIf="toEdit">
   <app-edit-profile
     [selectedProfile]="toEdit"
     (finishEditing)="endEdit()"
