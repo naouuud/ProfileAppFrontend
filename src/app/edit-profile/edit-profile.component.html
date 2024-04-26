@@ -1,23 +1,36 @@
-<h2>Edit Profile</h2>
-<form [formGroup]="editForm" (ngSubmit)="onSave()">
-  <div>
+<h2 class="display-5">Edit Profile</h2>
+<form [formGroup]="editForm">
+  <div class="form-group mb-2">
     <label for="name">Name</label
-    ><input type="text" id="name" maxlength="255" formControlName="Name" />
+    ><input
+      class="form-control"
+      type="text"
+      id="name"
+      maxlength="255"
+      formControlName="Name"
+    />
   </div>
-  <div>
+  <div class="form-group mb-2">
     <label for="address">Address</label
     ><textarea
+      class="form-control"
       id="address"
-      cols="30"
-      rows="10"
+      rows="3"
       maxlength="255"
       formControlName="Address"
     ></textarea>
   </div>
-  <div>
+  <div class="form-group mb-2">
     <label for="date_of_birth">Date of Birth</label
-    ><input type="date" id="date_of_birth" formControlName="Date_of_birth" />
+    ><input
+      class="form-control"
+      type="date"
+      id="date_of_birth"
+      formControlName="Date_of_birth"
+    />
   </div>
-  <button type="submit">Save Profile</button>
-  <button (click)="finishEditing.emit()">Cancel</button>
+  <button class="btn btn-primary" type="submit" (click)="onSave()">
+    Save Profile
+  </button>
+  <a routerLink=""><button class="btn">Cancel</button></a>
 </form>

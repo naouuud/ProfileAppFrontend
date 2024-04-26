@@ -1,22 +1,52 @@
-<h2>Add Profile</h2>
+<h2 class="display-5">Add Profile</h2>
 <form [formGroup]="profileForm" (ngSubmit)="onSave()">
-  <div>
-    <label for="name">Name</label
-    ><input type="text" id="name" maxlength="255" formControlName="Name" />
+  <div class="form-group mb-2">
+    <label matInput for="name">Name</label
+    ><input
+      matInput
+      class="form-control"
+      type="text"
+      id="name"
+      maxlength="255"
+      formControlName="Name"
+    />
   </div>
-  <div>
+  <!-- <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput />
+  </mat-form-field> -->
+  <div class="form-group mb-2">
     <label for="address">Address</label
     ><textarea
+      matInput
+      class="form-control"
       id="address"
-      cols="30"
-      rows="10"
+      rows="3"
       maxlength="255"
       formControlName="Address"
     ></textarea>
   </div>
-  <div>
+  <!-- <mat-form-field appearance="fill">
+    <mat-label>Address</mat-label>
+    <input matInput />
+  </mat-form-field> -->
+  <div class="form-group mb-2">
     <label for="date_of_birth">Date of Birth</label
-    ><input type="date" id="date_of_birth" formControlName="Date_of_birth" />
+    ><input
+      matInput
+      class="form-control"
+      type="date"
+      id="date_of_birth"
+      formControlName="Date_of_birth"
+    />
   </div>
-  <button type="submit">Save Profile</button>
+  <!-- <mat-form-field appearance="fill">
+    <mat-label>Date of Birth</mat-label>
+    <input matInput />
+    <input matInput [matDatepicker]="picker" />
+    <mat-hint>mm/dd/yyyy</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field> -->
+  <button class="btn" type="submit">Save Profile</button>
 </form>

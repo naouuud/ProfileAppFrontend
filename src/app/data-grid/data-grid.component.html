@@ -1,33 +1,58 @@
-<app-profile-form (finishAdding)="endEdit()"></app-profile-form>
+<div class="container mb-5">
+  <app-profile-form></app-profile-form>
+</div>
 
-<h2>Data Grid</h2>
-<form [formGroup]="searchForm" (ngSubmit)="onSearch()">
-  <input type="text" maxlength="255" formControlName="searchTerm" />
-  <button type="submit">Search</button>
-</form>
+<div class="container mb-5">
+  <h2 class="display-5">Data Grid</h2>
+  <div class="mb-2">
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <div class="form-group">
+        <input
+          class="form-control mb-2"
+          type="text"
+          maxlength="255"
+          formControlName="searchTerm"
+        />
+        <button class="btn btn-primary" type="submit">Search</button>
+      </div>
+    </form>
+  </div>
 
-<table>
-  <tr *ngIf="profiles.length > 0">
-    <th>Name</th>
-    <th>Address</th>
-    <th>Date of birth</th>
-    <th>Edit</th>
-    <th>Delete</th>
-  </tr>
-  <tr *ngFor="let profile of profiles" id="row-{{ profile.id }}">
-    <td class="name">{{ profile.name }}</td>
-    <td class="address">{{ profile.address }}</td>
-    <td class="dob">{{ profile.date_of_birth }}</td>
-    <td><button (click)="editProfile(profile.id)">Edit</button></td>
-    <td>
-      <button (click)="deleteProfile(profile.id)">Delete</button>
-    </td>
-  </tr>
-</table>
+  <table class="table table-striped">
+    <thead>
+      <tr *ngIf="profiles.length > 0">
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">DOB</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let profile of profiles" id="row-{{ profile.id }}">
+        <td class="name">{{ profile.name }}</td>
+        <td class="address">{{ profile.address }}</td>
+        <td class="dob">{{ profile.date_of_birth }}</td>
+        <td>
+          <a [routerLink]="['edit', profile.id]"
+            ><button class="btn">Edit</button></a
+          >
+        </td>
+        <td>
+          <button class="btn" (click)="onDelete(profile.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-<div id="edit-form" *ngIf="toEdit">
+<div class="container mb-5">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- <div class="container mb-5" id="edit-form" *ngIf="toEdit">
   <app-edit-profile
     [selectedProfile]="toEdit"
     (finishEditing)="endEdit()"
   ></app-edit-profile>
-</div>
+</div> -->

@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { ProfileFormComponent } from './profile-form/profile-form.component';
-import { DataGridComponent } from './data-grid/data-grid.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ProfileFormComponent, DataGridComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
