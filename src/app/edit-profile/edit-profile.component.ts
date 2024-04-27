@@ -28,16 +28,7 @@ export class EditProfileComponent implements OnInit {
     private router: Router,
   ) {}
 
-  setProfile() {
-    const profile = this.profileService.getProfile(this.profileId);
-    this.editForm.setValue({
-      Id: profile.id,
-      Name: profile.name,
-      Address: profile.address,
-      Date_of_birth: profile.date_of_birth,
-    });
-  }
-
+  // using route subscription not snapshot to update component when URL changes
   ngOnInit(): void {
     this.routeSubscription = this.route.paramMap.subscribe((params) => {
       this.profileId = params.get('profileId')!;
@@ -55,5 +46,15 @@ export class EditProfileComponent implements OnInit {
     this.profileService
       .updateProfile(data)
       .subscribe(() => this.router.navigate(['']));
+  }
+
+  setProfile() {
+    const profile = this.profileService.getProfile(this.profileId);
+    this.editForm.setValue({
+      Id: profile.id,
+      Name: profile.name,
+      Address: profile.address,
+      Date_of_birth: profile.date_of_birth,
+    });
   }
 }

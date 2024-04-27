@@ -24,7 +24,6 @@ export class ProfileFormComponent {
 
   onSave() {
     this.profileService.saveProfile(this.profileForm.value);
-    // this.profileService.searchProfiles('');
     this.profileForm.reset();
   }
 }

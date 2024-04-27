@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProfileFormComponent } from '../profile-form/profile-form.component';
-import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { ProfileService } from '../profile.service';
 import { Subscription } from 'rxjs';
@@ -14,7 +13,6 @@ import { Subscription } from 'rxjs';
     ReactiveFormsModule,
     CommonModule,
     ProfileFormComponent,
-    EditProfileComponent,
     RouterOutlet,
     RouterLink,
   ],
@@ -33,11 +31,12 @@ export class DataGridComponent implements OnInit, OnDestroy {
     private profileService: ProfileService,
   ) {}
 
-  // subscription to update DataGridComponent.profiles when ProfileService.profiles is updated
+  // subscription to Subject.asObservabale() to update DataGridComponent.profiles when ProfileService.profiles is updated
   ngOnInit(): void {
     this.profilesSubscription = this.profileService.profilesUpdated$.subscribe(
-      () => {
-        this.profiles = [...this.profileService.getProfiles()];
+      // callback function executed when Subject.next() is called, passes data from ProfileService to DataGridComponent
+      (profiles) => {
+        this.profiles = [...profiles];
       },
     );
   }
@@ -48,7 +47,8 @@ export class DataGridComponent implements OnInit, OnDestroy {
 
   onSearch() {
     const searchTerm = this.searchForm.value.searchTerm || '';
-    this.profileService.searchProfiles(searchTerm);
+    this.profileService.setSearchTerm(searchTerm);
+    this.profileService.populateGrid();
   }
 
   onDelete(profileId: string) {
