@@ -10,8 +10,11 @@ import { ProfileService } from '../profile.service';
   imports: [ReactiveFormsModule],
 })
 export class ProfileFormComponent {
-  // @Output() finishAdding = new EventEmitter();
-  profileForm = this.formBuilder.group({
+  profileForm = this.formBuilder.group<{
+    Name: string | null;
+    Address: string | null;
+    Date_of_birth: string | null;
+  }>({
     Name: '',
     Address: '',
     Date_of_birth: '',

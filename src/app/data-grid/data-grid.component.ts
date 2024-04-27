@@ -5,6 +5,7 @@ import { ProfileFormComponent } from '../profile-form/profile-form.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { ProfileService } from '../profile.service';
 import { Subscription } from 'rxjs';
+import { Profile } from '../profile';
 
 @Component({
   selector: 'app-data-grid',
@@ -20,7 +21,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './data-grid.component.css',
 })
 export class DataGridComponent implements OnInit, OnDestroy {
-  profiles: any[] = [];
+  profiles: Profile[] = [];
   private profilesSubscription!: Subscription;
   searchForm = this.formBuilder.group({
     searchTerm: '',
@@ -46,12 +47,13 @@ export class DataGridComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-    const searchTerm = this.searchForm.value.searchTerm || '';
-    this.profileService.setSearchTerm(searchTerm);
+    const searchTerm = this.searchForm.value.searchTerm;
+    // assert that searchTerm is not null as it is initialized as '' (empty string)
+    this.profileService.setSearchTerm(searchTerm!);
     this.profileService.populateGrid();
   }
 
-  onDelete(profileId: string) {
-    this.profileService.deleteProfile(profileId);
+  onDelete(profileId: number) {
+    this.profileService.deleteProfile(String(profileId));
   }
 }

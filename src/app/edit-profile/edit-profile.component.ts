@@ -12,7 +12,12 @@ import { Subscription } from 'rxjs';
   styleUrl: './edit-profile.component.css',
 })
 export class EditProfileComponent implements OnInit {
-  editForm = this.formBuilder.group({
+  editForm = this.formBuilder.group<{
+    Id: string | null;
+    Name: string | null;
+    Address: string | null;
+    Date_of_birth: string | null;
+  }>({
     Id: '',
     Name: '',
     Address: '',
@@ -50,11 +55,13 @@ export class EditProfileComponent implements OnInit {
 
   setProfile() {
     const profile = this.profileService.getProfile(this.profileId);
-    this.editForm.setValue({
-      Id: profile.id,
-      Name: profile.name,
-      Address: profile.address,
-      Date_of_birth: profile.date_of_birth,
-    });
+    if (profile) {
+      this.editForm.setValue({
+        Id: String(profile.id),
+        Name: profile.name,
+        Address: profile.address,
+        Date_of_birth: profile.date_of_birth,
+      });
+    }
   }
 }

@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
+import { Profile } from './profile';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  private searchTerm: string = '';
-  private profiles: any[] = [];
-  private profilesUpdated = new Subject<any[]>();
+  private searchTerm: string | null = null;
+  private profiles: Profile[] = [];
+  private profilesUpdated = new Subject<Profile[]>();
   profilesUpdated$ = this.profilesUpdated.asObservable();
 
   constructor(private http: HttpClient) {}
@@ -35,9 +36,13 @@ export class ProfileService {
   }
 
   populateGrid() {
+    // not sufficient to check if this.searchTerm is falsy as empty string is also falsy
+    if (this.searchTerm === null) return;
     if (this.searchTerm === '') {
       this.http
-        .get<any[]>('https://profileapp59256.azurewebsites.net/api/Profiles')
+        .get<
+          Profile[]
+        >('https://profileapp59256.azurewebsites.net/api/Profiles')
         .subscribe((response) => {
           this.profiles = [...response];
           for (const profile of this.profiles) {
@@ -47,7 +52,7 @@ export class ProfileService {
         });
     } else {
       this.http
-        .post<any[]>(
+        .post<Profile[]>(
           'https://profileapp59256.azurewebsites.net/api/Profiles/Search',
           JSON.stringify(this.searchTerm),
           {
@@ -66,7 +71,13 @@ export class ProfileService {
     }
   }
 
-  saveProfile(profile: any) {
+  saveProfile(
+    profile: Partial<{
+      Name: string | null;
+      Address: string | null;
+      Date_of_birth: string | null;
+    }>,
+  ) {
     if (profile.Date_of_birth === '') profile.Date_of_birth = null;
     const profileJson = JSON.stringify(profile);
     this.http
@@ -85,7 +96,14 @@ export class ProfileService {
       });
   }
 
-  updateProfile(profile: any) {
+  updateProfile(
+    profile: Partial<{
+      Id: string | null;
+      Name: string | null;
+      Address: string | null;
+      Date_of_birth: string | null;
+    }>,
+  ) {
     const profileJson = JSON.stringify(profile);
     return new Observable((observer) => {
       this.http
